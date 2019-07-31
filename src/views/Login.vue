@@ -1,5 +1,5 @@
 <template>
-  <form novalidate class="md-layout" @submit.prevent="login">
+  <form novalidate class="md-layout" @submit.prevent="submit">
     <md-card class="md-layout-item md-size-50 md-small-size-100">
       <md-card-header>
         <div class="md-title">Please login</div>
@@ -27,7 +27,7 @@
 
       <md-card-content>
         <md-field :class="getValidationClass('password')">
-          <label for="password">password</label>
+          <label for="password">Password</label>
           <md-input
             type="password"
             name="password"
@@ -53,14 +53,13 @@
         >
       </md-card-actions>
     </md-card>
-
-    <md-snackbar :md-active.sync="loggedIn">Login success</md-snackbar>
   </form>
 </template>
 
 <script>
 import { validationMixin } from 'vuelidate';
 import { required, email, minLength } from 'vuelidate/lib/validators';
+import firebase from 'firebase/app';
 
 export default {
   name: 'FormValidation',
@@ -70,7 +69,6 @@ export default {
       email: null,
       password: null
     },
-    loggedIn: false,
     sending: false
   }),
   validations: {
@@ -100,20 +98,20 @@ export default {
       this.form.email = null;
       this.form.password = null;
     },
-    loginRequest() {
+    login() {
       this.sending = true;
 
       window.setTimeout(() => {
-        this.loggedIn = true;
         this.sending = false;
         this.clearForm();
+        this.$router.push('/news');
       }, 1500);
     },
-    login() {
+    submit() {
       this.$v.$touch();
 
       if (!this.$v.$invalid) {
-        this.loginRequest();
+        this.login();
       }
     }
   }
