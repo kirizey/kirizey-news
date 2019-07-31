@@ -21,7 +21,6 @@ const actions = {
         .auth()
         .signInWithEmailAndPassword(email, password);
 
-      console.log(data.user);
       context.commit('setUser', { email: data.user.email, id: data.user.uid });
       context.commit('setAccessToken', data.user.ra);
       context.commit('setRefreshToken', data.user.refreshToken);
@@ -49,9 +48,22 @@ const actions = {
     }
   },
 
-  logout: async () => {
-    await firebase.auth().signOut();
+  singOut: async context => {
+    try {
+      await firebase.auth().signOut();
+      store.dispatch('pushNotification', 'Logout successfully!');
+      resetAllUserData(context);
+    } catch (error) {
+      store.dispatch('pushNotification', 'Server error!');
+      throw new Error('Server error');
+    }
   }
+};
+
+const resetAllUserData = context => {
+  context.commit('setUser', null);
+  context.commit('setAccessToken', null);
+  context.commit('setRefreshToken', null);
 };
 
 export default {

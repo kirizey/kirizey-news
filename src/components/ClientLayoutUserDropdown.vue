@@ -4,15 +4,27 @@
       <md-button md-menu-trigger><md-icon>person_outline</md-icon></md-button>
 
       <md-menu-content>
-        <md-menu-item>Logout</md-menu-item>
+        <md-menu-item @click="logout">Logout</md-menu-item>
       </md-menu-content>
     </md-menu>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
-  name: 'client-layout-user-dropdown'
+  name: 'client-layout-user-dropdown',
+  methods: {
+    ...mapActions(['singOut']),
+
+    async logout() {
+      try {
+        await this.singOut();
+        this.$router.push('/login');
+      } catch (error) {}
+    }
+  }
 };
 </script>
 
