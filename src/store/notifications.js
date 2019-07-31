@@ -20,6 +20,7 @@ const toggleShowingStatus = context => {
   context.commit('setSnackbarShowState', true);
   setTimeout(() => {
     context.commit('setSnackbarShowState', false);
+    context.commit('setNotificationMessage', '');
   }, 2000);
 };
 

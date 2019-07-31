@@ -5,10 +5,14 @@ import { errorsCodes } from './errorsCodes';
 
 const state = { user: null, accessToken: null, refreshToken: null };
 const getters = {
-  user: state => state.user
+  user: state => state.user,
+  accessToken: state => state.accessToken,
+  refreshToken: state => state.refreshToken
 };
 const mutations = {
-  setUser: (state, payload) => (state.user = payload)
+  setUser: (state, payload) => (state.user = payload),
+  setAccessToken: (state, payload) => (state.accessToken = payload),
+  setRefreshToken: (state, payload) => (state.refreshToken = payload)
 };
 const actions = {
   loginUserWithEmailAndPassword: async (context, { email, password }) => {
@@ -17,7 +21,10 @@ const actions = {
         .auth()
         .signInWithEmailAndPassword(email, password);
 
+      console.log(data.user);
       context.commit('setUser', { email: data.user.email, id: data.user.uid });
+      context.commit('setAccessToken', data.user.ra);
+      context.commit('setRefreshToken', data.user.refreshToken);
     } catch (error) {
       switch (error.code) {
         case errorsCodes.userNotFound:
