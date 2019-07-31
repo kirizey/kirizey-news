@@ -27,3 +27,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.relative {
+  position: relative;
+}
+</style>
+

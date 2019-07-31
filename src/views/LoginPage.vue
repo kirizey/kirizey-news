@@ -60,6 +60,12 @@
       <md-progress-bar md-mode="indeterminate" v-if="isLoading" />
 
       <md-card-actions>
+        <p class="link-to-register">
+          Or
+          <router-link to="/register" tag="i">
+            <strong> register </strong>
+          </router-link>
+        </p>
         <md-button type="submit" class="md-raised" :disabled="isLoading"
           >Login</md-button
         >
@@ -155,5 +161,14 @@ form {
 
 .md-title {
   text-align: center;
+}
+
+.md-card-actions {
+  justify-content: space-between !important;
+}
+
+.link-to-register {
+  margin-left: 20px;
+  cursor: pointer;
 }
 </style>
