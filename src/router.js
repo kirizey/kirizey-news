@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import LoginPage from './views/LoginPage.vue';
+import PageNotFound from './views/PageNotFound.vue';
 
 Vue.use(Router);
 
@@ -26,6 +27,7 @@ export default new Router({
       name: 'news',
       meta: { layout: 'client' },
       component: () => import('./views/NewsList.vue')
-    }
+    },
+    { path: '*', component: PageNotFound }
   ]
 });
