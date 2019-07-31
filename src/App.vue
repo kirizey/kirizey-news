@@ -11,7 +11,7 @@
 import AdminLayout from './layouts/AdminLayout';
 import AuthLayout from './layouts/AuthLayout';
 import ClientLayout from './layouts/ClientLayout';
-import NotificationSnackbar from './components/NotificationSnackbar'
+import NotificationSnackbar from './components/NotificationSnackbar';
 
 export default {
   components: {

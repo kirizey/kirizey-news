@@ -5,9 +5,7 @@
         <div class="md-toolbar-row">
           <span class="md-title">Kirizey News</span>
 
-          <div class="md-toolbar-section-end">
-            <md-button><md-icon>person_outline</md-icon></md-button>
-          </div>
+          <client-layout-user-dropdown />
         </div>
       </md-app-toolbar>
 
@@ -24,6 +22,7 @@
             <md-icon>whatshot</md-icon>
             <span class="md-list-item-text">Most popular</span>
           </router-link>
+          
         </md-list>
       </md-app-drawer>
 
@@ -35,7 +34,12 @@
 </template>
 
 <script>
+import ClientLayoutUserDropdown from '../components/ClientLayoutUserDropdown';
+
 export default {
+  components: {
+    ClientLayoutUserDropdown
+  },
   data: () => ({})
 };
 </script>
@@ -58,7 +62,7 @@ export default {
   background-color: rgba(255, 255, 255, 0.12);
 
   span {
-    color: #fff;
+    color: rgba(0, 0, 0, 0.87);
   }
 }
 </style>
