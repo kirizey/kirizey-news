@@ -16,8 +16,12 @@
             v-model="form.email"
             :disabled="sending"
           />
-          <span class="md-error" v-if="!$v.form.email.required">The email is required</span>
-          <span class="md-error" v-else-if="!$v.form.email.email">Invalid email</span>
+          <span class="md-error" v-if="!$v.form.email.required"
+            >The email is required</span
+          >
+          <span class="md-error" v-else-if="!$v.form.email.email"
+            >Invalid email</span
+          >
         </md-field>
       </md-card-content>
 
@@ -32,15 +36,21 @@
             v-model="form.password"
             :disabled="sending"
           />
-          <span class="md-error" v-if="!$v.form.password.required">The password is required</span>
-          <span class="md-error" v-else-if="!$v.form.minLength">Your password too short</span>
+          <span class="md-error" v-if="!$v.form.password.required"
+            >The password is required</span
+          >
+          <span class="md-error" v-else-if="!$v.form.minLength"
+            >Your password too short</span
+          >
         </md-field>
       </md-card-content>
 
       <md-progress-bar md-mode="indeterminate" v-if="sending" />
 
       <md-card-actions>
-        <md-button type="submit" class="md-raised" :disabled="sending">Login</md-button>
+        <md-button type="submit" class="md-raised" :disabled="sending"
+          >Login</md-button
+        >
       </md-card-actions>
     </md-card>
 
@@ -50,12 +60,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate';
-import {
-  required,
-  email,
-  minLength,
-  maxLength
-} from 'vuelidate/lib/validators';
+import { required, email, minLength } from 'vuelidate/lib/validators';
 
 export default {
   name: 'FormValidation',
@@ -133,4 +138,3 @@ form {
   text-align: center;
 }
 </style>
-
