@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Login from './views/Login.vue';
+import LoginPage from './views/LoginPage.vue';
 
 Vue.use(Router);
 
@@ -13,19 +13,19 @@ export default new Router({
       path: '/login',
       name: 'login',
       meta: { layout: 'auth' },
-      component: Login
+      component: LoginPage
     },
     {
       path: '/register',
       name: 'register',
       meta: { layout: 'auth' },
-      component: () => import('./views/Register.vue')
+      component: () => import('./views/RegisterPage.vue')
     },
     {
       path: '/news',
       name: 'news',
       meta: { layout: 'client' },
-      component: () => import('./views/News.vue')
+      component: () => import('./views/NewsList.vue')
     }
   ]
 });
