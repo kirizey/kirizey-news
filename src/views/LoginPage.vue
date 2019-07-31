@@ -14,12 +14,18 @@
             id="email"
             autocomplete="email"
             v-model="form.email"
-            :disabled="sending"
+            :disabled="isLoading"
           />
-          <span class="md-error" v-if="!$v.form.email.required"
+          <span
+            class="md-error"
+            v-if="!$v.form.email.required"
+            key="email-invalid-message"
             >The email is required</span
           >
-          <span class="md-error" v-else-if="!$v.form.email.email"
+          <span
+            class="md-error"
+            v-else-if="!$v.form.email.email"
+            key="email-invalid-message"
             >Invalid email</span
           >
         </md-field>
@@ -34,21 +40,27 @@
             id="password"
             autocomplete="password"
             v-model="form.password"
-            :disabled="sending"
+            :disabled="isLoading"
           />
-          <span class="md-error" v-if="!$v.form.password.required"
+          <span
+            class="md-error"
+            v-if="!$v.form.password.required"
+            key="password-invalid-message"
             >The password is required</span
           >
-          <span class="md-error" v-else-if="!$v.form.minLength"
+          <span
+            class="md-error"
+            v-else-if="!$v.form.minLength"
+            key="password-invalid-message"
             >Your password too short</span
           >
         </md-field>
       </md-card-content>
 
-      <md-progress-bar md-mode="indeterminate" v-if="sending" />
+      <md-progress-bar md-mode="indeterminate" v-if="isLoading" />
 
       <md-card-actions>
-        <md-button type="submit" class="md-raised" :disabled="sending"
+        <md-button type="submit" class="md-raised" :disabled="isLoading"
           >Login</md-button
         >
       </md-card-actions>
@@ -59,17 +71,17 @@
 <script>
 import { validationMixin } from 'vuelidate';
 import { required, email, minLength } from 'vuelidate/lib/validators';
-import firebase from 'firebase/app';
+import { mapActions } from 'vuex';
 
 export default {
-  name: 'FormValidation',
+  name: 'login-page',
   mixins: [validationMixin],
   data: () => ({
     form: {
       email: null,
       password: null
     },
-    sending: false
+    isLoading: false
   }),
   validations: {
     form: {
@@ -84,6 +96,8 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['loginUserWithEmailAndPassword']),
+
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];
 
@@ -93,20 +107,27 @@ export default {
         };
       }
     },
+
     clearForm() {
       this.$v.$reset();
       this.form.email = null;
       this.form.password = null;
     },
-    login() {
-      this.sending = true;
 
-      window.setTimeout(() => {
-        this.sending = false;
+    async login() {
+      const { email, password } = this.form;
+      this.isLoading = true;
+
+      try {
+        await this.loginUserWithEmailAndPassword({ email, password });
+        this.isLoading = false;
         this.clearForm();
         this.$router.push('/news');
-      }, 1500);
+      } catch (error) {
+        this.isLoading = false;
+      }
     },
+
     submit() {
       this.$v.$touch();
 
