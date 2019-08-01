@@ -62,7 +62,6 @@ import { required, minLength } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
 
 export default {
-  name: 'FormValidation',
   mixins: [validationMixin],
   data: () => ({
     form: {
@@ -84,6 +83,7 @@ export default {
   },
   methods: {
     ...mapActions(['createNewRequest']),
+    
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];
 

@@ -43,6 +43,32 @@ const actions = {
       store.dispatch('pushNotification', 'Cannot get news.');
       throw new Error('Server error');
     }
+  },
+
+  getNewById: async (context, id) => {
+    try {
+      return (await firebase
+        .database()
+        .ref(`/news/${id}`)
+        .once('value')).val();
+    } catch (error) {
+      store.dispatch('pushNotification', 'Cannot update new.');
+      throw new Error('Server error');
+    }
+  },
+
+  updateNewRequest: async (context, { id, title, body }) => {
+    try {
+      await firebase
+        .database()
+        .ref(`/news`)
+        .child(id)
+        .update({ title, body });
+      store.dispatch('pushNotification', 'Update successful.');
+    } catch (error) {
+      store.dispatch('pushNotification', 'Update new failed.');
+      throw new Error('Server error.');
+    }
   }
 };
 
