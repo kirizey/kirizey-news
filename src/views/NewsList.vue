@@ -1,3 +1,14 @@
 <template>
-  <p>news works</p>
+  <news-list />
 </template>
+
+<script>
+import NewsList from '../components/NewsList';
+
+export default {
+  components: {
+    NewsList
+  }
+};
+</script>
+

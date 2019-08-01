@@ -1,19 +1,25 @@
 <template>
-  <div class="news-list" v-if="news">
+  <md-list v-if="news">
+    <md-subheader>News</md-subheader>
     <md-list-item v-for="(newItem, index) in news" v-bind:key="index">
-      <router-link :to="{ path: `/admin/news/${newItem.id}` }">
+      <router-link :to="{ path: `${forAdminLink}/news/${newItem.id}` }">
         {{ newItem.title }}
       </router-link>
     </md-list-item>
-  </div>
+  </md-list>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
 export default {
-  name: 'admin-news-list',
+  name: 'news-list',
+  props: { forAdmin: Boolean },
   computed: {
-    ...mapGetters(['news'])
+    ...mapGetters(['news']),
+
+    forAdminLink() {
+      return this.forAdmin ? '/admin' : '';
+    }
   },
   methods: {
     ...mapActions(['getAllNews'])

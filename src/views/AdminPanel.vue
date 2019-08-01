@@ -1,17 +1,14 @@
 <template>
-  <md-list>
-    <md-subheader>News</md-subheader>
-    <admin-news-list />
-  </md-list>
+  <news-list forAdmin />
 </template>
 
 <script>
-import AdminNewsList from '../components/AdminNewsList';
+import NewsList from '../components/NewsList';
 
 export default {
   name: 'admin-panel',
   components: {
-    'admin-news-list': AdminNewsList
+    'news-list': NewsList
   }
 };
 </script>

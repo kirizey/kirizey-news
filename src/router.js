@@ -31,6 +31,12 @@ const router = new Router({
       component: () => import('./views/NewsList.vue')
     },
     {
+      path: '/news/:id',
+      name: 'news-details',
+      meta: { layout: 'client', auth: true },
+      component: () => import('./views/NewsDetails.vue')
+    },
+    {
       path: '/admin',
       name: 'admin',
       meta: { layout: 'admin', auth: true },
