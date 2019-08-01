@@ -28,8 +28,8 @@ export default {
     ...mapActions(['singOut']),
 
     async logout() {
-      await this.singOut();
       this.$router.push('/login');
+      await this.singOut();
     }
   }
 };
