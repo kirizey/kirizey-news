@@ -19,12 +19,9 @@ export default {
     ...mapActions(['singOut']),
 
     async logout() {
-      try {
-        await this.singOut();
-        this.$router.push('/login');
-      } catch (error) {}
+      await this.singOut();
+      this.$router.push('/login');
     }
   }
 };
 </script>
-

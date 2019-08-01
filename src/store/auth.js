@@ -59,7 +59,7 @@ const actions = {
       context.commit('setUser', { email: data.user.email, id: data.user.uid });
       context.commit('setAccessToken', data.user.ra);
       context.commit('setRefreshToken', data.user.refreshToken);
-      
+
       store.dispatch('pushNotification', 'Registered successfully.');
     } catch (error) {
       if (error.code === errorsCodes.emailAlreadyInUse) {

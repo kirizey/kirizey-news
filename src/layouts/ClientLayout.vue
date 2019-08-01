@@ -22,7 +22,6 @@
             <md-icon>whatshot</md-icon>
             <span class="md-list-item-text">Most popular</span>
           </router-link>
-          
         </md-list>
       </md-app-drawer>
 
@@ -43,7 +42,6 @@ export default {
   data: () => ({})
 };
 </script>
-
 
 <style lang="scss" scoped>
 .md-app {

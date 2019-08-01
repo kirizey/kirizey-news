@@ -67,7 +67,7 @@
           <label for="agree">Agree with terms.</label>
         </md-checkbox>
         <span
-          class="md-error"
+          class="checkbox-error"
           v-if="$v.form.$touch && !$v.form.agree.checked"
           key="agree-invalid-message"
           >The agrement is required</span
@@ -192,7 +192,7 @@ form {
   cursor: pointer;
 }
 
-.md-error {
+.checkbox-error {
   height: 20px;
   position: absolute;
   bottom: 0px;

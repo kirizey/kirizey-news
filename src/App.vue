@@ -33,4 +33,3 @@ export default {
   position: relative;
 }
 </style>
-
