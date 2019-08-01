@@ -36,6 +36,12 @@ const router = new Router({
       meta: { layout: 'admin', auth: true },
       component: () => import('./views/NewsList.vue')
     },
+    {
+      path: '/admin/news/create',
+      name: 'create-new',
+      meta: { layout: 'admin', auth: true },
+      component: () => import('./views/CreateNew.vue')
+    },
     { path: '*', component: PageNotFound }
   ]
 });

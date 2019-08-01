@@ -19,7 +19,7 @@
             <md-icon>library_books</md-icon>
             <span class="md-list-item-text">News list</span>
           </router-link>
-          <router-link to="admin/news/create" tag="md-list-item">
+          <router-link to="/admin/news/create" tag="md-list-item">
             <md-icon>library_add</md-icon>
             <span class="md-list-item-text">Create new</span>
           </router-link>
