@@ -1,7 +1,7 @@
 <template>
   <md-snackbar
     :md-active="isSnackBarShowing"
-    md-position="left"
+    md-position="center"
     md-persistent
     >{{ notificationMessage }}</md-snackbar
   >

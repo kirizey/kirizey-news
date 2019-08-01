@@ -89,6 +89,13 @@ export default {
     },
     isLoading: false
   }),
+
+  computed: {
+    redirectPath() {
+     return this.$route.query.redirect || '/news';
+    }
+  },
+
   validations: {
     form: {
       email: {
@@ -128,7 +135,7 @@ export default {
         await this.loginUserWithEmailAndPassword({ email, password });
         this.isLoading = false;
         this.clearForm();
-        this.$router.push('/news');
+        this.$router.push(this.redirectPath);
       } catch (error) {
         this.isLoading = false;
       }

@@ -4,16 +4,20 @@ import store from './index';
 
 const state = { news: null };
 
-const getters = {};
+const getters = {
+  news: state => state.news
+};
 
-const mutatios = {};
+const mutations = {
+  setNewsList: (state, payload) => (state.news = payload)
+};
 
 const actions = {
   createNewRequest: async (context, { title, body }) => {
     try {
       await firebase
         .database()
-        .ref(`/news`)
+        .ref('/news')
         .push({ title, body });
 
       store.dispatch('pushNotification', `New ${title} created`);
@@ -22,12 +26,29 @@ const actions = {
 
       throw new Error('Deny create request.');
     }
+  },
+
+  getAllNews: async context => {
+    try {
+      let news = (await firebase
+        .database()
+        .ref('/news')
+        .once('value')).val();
+
+      news = Object.keys(news).map(key => ({ ...news[key], id: key }));
+
+      context.commit('setNewsList', news);
+    } catch (error) {
+      console.log(error);
+      store.dispatch('pushNotification', 'Cannot get news.');
+      throw new Error('Server error');
+    }
   }
 };
 
 export default {
   state,
   getters,
-  mutatios,
+  mutations,
   actions
 };

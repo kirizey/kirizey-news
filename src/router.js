@@ -34,13 +34,19 @@ const router = new Router({
       path: '/admin',
       name: 'admin',
       meta: { layout: 'admin', auth: true },
-      component: () => import('./views/NewsList.vue')
+      component: () => import('./views/AdminPanel.vue')
     },
     {
       path: '/admin/news/create',
       name: 'create-new',
       meta: { layout: 'admin', auth: true },
       component: () => import('./views/CreateNew.vue')
+    },
+    {
+      path: '/admin/news/:id',
+      name: 'edit-new',
+      meta: { layout: 'admin', auth: true },
+      component: () => import('./views/EditNew.vue')
     },
     { path: '*', component: PageNotFound }
   ]
@@ -51,7 +57,7 @@ router.beforeEach((to, from, next) => {
   const requireAuth = to.matched.some(record => record.meta.auth);
 
   if (requireAuth && !currentUser) {
-    next('/login');
+    next({ path: '/login', query: { redirect: to.fullPath } });
   } else {
     next();
   }
