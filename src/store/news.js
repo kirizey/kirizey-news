@@ -22,9 +22,7 @@ const actions = {
 
       store.dispatch('pushNotification', `New ${title} created`);
     } catch (error) {
-      store.dispatch('pushNotification', 'Deny create request.');
-
-      throw new Error('Deny create request.');
+      sendErrorNotification(store, 'Deny create request.');
     }
   },
 
@@ -39,9 +37,7 @@ const actions = {
 
       context.commit('setNewsList', news);
     } catch (error) {
-      console.log(error);
-      store.dispatch('pushNotification', 'Cannot get news.');
-      throw new Error('Server error');
+      sendErrorNotification(store, 'Cannot get news.');
     }
   },
 
@@ -52,8 +48,7 @@ const actions = {
         .ref(`/news/${id}`)
         .once('value')).val();
     } catch (error) {
-      store.dispatch('pushNotification', 'Cannot update new.');
-      throw new Error('Server error');
+      sendErrorNotification(store, 'Cannot update new.');
     }
   },
 
@@ -66,10 +61,27 @@ const actions = {
         .update({ title, body });
       store.dispatch('pushNotification', 'Update successful.');
     } catch (error) {
-      store.dispatch('pushNotification', 'Update new failed.');
-      throw new Error('Server error.');
+      sendErrorNotification(store, 'Update new failed.');
+    }
+  },
+
+  removeNewRequest: async (context, id) => {
+    try {
+      await firebase
+        .database()
+        .ref('/news')
+        .child(id)
+        .remove();
+      store.dispatch('pushNotification', 'Remove successful.');
+    } catch (error) {
+      sendErrorNotification(store, 'Remove new failed.');
     }
   }
+};
+
+const sendErrorNotification = (store, message) => {
+  store.dispatch('pushNotification', message);
+  throw new Error(message);
 };
 
 export default {

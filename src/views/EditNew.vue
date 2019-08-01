@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form v-if="form.title" novalidate class="md-layout" @submit.prevent="submit">
+    <form novalidate class="md-layout" @submit.prevent="submit">
       <md-card class="md-layout-item">
         <md-card-header>
           <div class="md-title">Update new</div>
@@ -47,6 +47,13 @@
         <md-progress-bar md-mode="indeterminate" v-if="loading" />
 
         <md-card-actions>
+          <md-button
+            @click="removeNew"
+            type="button"
+            class="md-accent"
+            :disabled="loading"
+            >Remove new</md-button
+          >
           <md-button type="submit" class="md-primary" :disabled="loading"
             >Update new</md-button
           >
@@ -91,7 +98,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateNewRequest', 'getNewById', 'pushNotification']),
+    ...mapActions([
+      'updateNewRequest',
+      'getNewById',
+      'pushNotification',
+      'removeNewRequest'
+    ]),
 
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];
@@ -122,11 +134,23 @@ export default {
         this.loading = false;
       }
     },
+
     submit() {
       this.$v.$touch();
 
       if (!this.$v.$invalid) {
         this.createNew();
+      }
+    },
+
+    async removeNew() {
+      this.loading = true;
+      try {
+        await this.removeNewRequest(this.newId);
+        this.loading = false;
+        this.$router.push('/admin');
+      } catch (error) {
+        this.loading = false;
       }
     }
   }
