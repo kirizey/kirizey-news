@@ -30,6 +30,12 @@ const router = new Router({
       meta: { layout: 'client', auth: true },
       component: () => import('./views/NewsList.vue')
     },
+    {
+      path: '/admin',
+      name: 'admin',
+      meta: { layout: 'admin', auth: true },
+      component: () => import('./views/NewsList.vue')
+    },
     { path: '*', component: PageNotFound }
   ]
 });

@@ -4,6 +4,7 @@
       <md-button md-menu-trigger><md-icon>person_outline</md-icon></md-button>
 
       <md-menu-content>
+        <router-link to="/admin" tag="md-menu-item">Admin panel</router-link>
         <md-menu-item @click="logout">Logout</md-menu-item>
       </md-menu-content>
     </md-menu>
